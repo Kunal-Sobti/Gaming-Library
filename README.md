@@ -10,4 +10,4 @@ Game Library in Java
 ## Games Available:
 1. Flappy Bird 
 2. Ping Pong
-More games coming soon..
+3. More games coming soon..
