@@ -1,4 +1,4 @@
-package src;
+package pingpong;
 import java.awt.*;
 public class Score extends Rectangle {
     static int GAME_WIDTH;

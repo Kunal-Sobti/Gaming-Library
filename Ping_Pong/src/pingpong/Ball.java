@@ -1,4 +1,4 @@
-package src;
+package pingpong;
 
 import java.awt.*;
 import java.util.Random;
