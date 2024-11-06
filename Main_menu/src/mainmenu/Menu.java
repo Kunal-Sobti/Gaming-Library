@@ -13,10 +13,10 @@ public class Menu {
 
     public Menu() {
         
-        JFrame frame = new JFrame("Game Library 🕹️🎯🎮");
+        JFrame frame = new JFrame("🕹️🎯 Game Library 🎮⭕");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 350);
-        frame.setLayout(new GridLayout(3, 1)); 
+        frame.setSize(800, 550);
+        frame.setLayout(new GridLayout(2, 2)); 
 
         ImageIcon gamepadIcon= new ImageIcon(getClass().getResource("/mainmenu/Images/Game_Icon.png"));
         frame.setIconImage(gamepadIcon.getImage());
@@ -45,9 +45,17 @@ public class Menu {
         Color colorForPacman= new Color(247, 247, 1);
         pacmanButton.setBackground(colorForPacman);
 
+        // ticTac button
+        JButton ticTacButton= new JButton("Play Tic-Tac-Toe ❌⭕");
+        ticTacButton.setFont(commonFont);
+
+        Color colorForTictac= new Color(12, 89, 255);
+        ticTacButton.setBackground(colorForTictac);
+
         frame.add(flappyBirdButton);
         frame.add(pingPongButton);
         frame.add(pacmanButton);
+        frame.add(ticTacButton);
 
         frame.setVisible(true);
         frame.setLocationRelativeTo(null); 
@@ -70,6 +78,13 @@ public class Menu {
             @Override
             public void actionPerformed(ActionEvent e){
                 pacmanGame();
+            }
+        });
+
+        ticTacButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                ticTacToeGame();
             }
         });
     }
@@ -104,6 +119,18 @@ public class Menu {
         Thread Game= new Thread(() -> {
             try {
                 pacman.GamePacman.main(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        Game.setDaemon(false);
+        Game.start();
+    }
+
+    private void ticTacToeGame(){
+        Thread Game= new Thread(() -> {
+            try {
+                tictactoe.TicTacGame.main(null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
