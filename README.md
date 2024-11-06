@@ -5,9 +5,10 @@ Game Library in Java
 1. download the "out" folder 
 2. open terminal, locate out folder and go to out folder using cd command
 3. run the following command: java mainmenu.Menu
-4. Play the game you like :)
+4. Play the games you like :)
 
 ## Games Available:
-1. Flappy Bird 
+1. Flappy Bird   
 2. Ping Pong
-3. More games coming soon..
+3. Pac-Man
+4. More games coming soon..
