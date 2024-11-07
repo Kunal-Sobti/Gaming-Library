@@ -14,4 +14,7 @@ Game Library in Java
 ![Alt text](https://user-images.githubusercontent.com/56690325/201481720-479b5b18-693c-4287-b559-879e29ef86d2.png)   
 ### 3. Pac-Man
 ![Alt text](https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Pac-Man_TV_series_logo.svg/330px-Pac-Man_TV_series_logo.svg.png)
+### 4. Tic-Tac-Toe
+![Alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/300px-Tic_tac_toe.svg.png)
+
 ## More games coming soon..
