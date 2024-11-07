@@ -1,11 +1,16 @@
 package pacman;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Random;
 
 public class PacMan extends JPanel implements ActionListener, KeyListener{
+    
     class Block{
         int x;
         int y;
@@ -73,6 +78,34 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
         }
     }
 
+    // Sound Track
+    Clip eatClip = null;
+    Clip dieClip = null;
+    Clip levelUpClip = null;
+    Clip ghostEat = null;
+    class SoundTrack {
+        Clip clip = null;
+        AudioInputStream audioStream;
+
+        SoundTrack(String audio) {
+            try {
+                InputStream soundFile = getClass().getResourceAsStream(audio);
+                if (soundFile == null) {
+                    System.out.println("Sound file not found: " + audio);
+                    return;
+                }
+                audioStream = AudioSystem.getAudioInputStream(soundFile);
+                clip = AudioSystem.getClip();
+                clip.open(audioStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Clip getClip() {
+            return clip;
+        }
+    }
     private int rowCount= 21;
     private int columnCount= 19;
     private int tileSize= 32;
@@ -258,8 +291,22 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
         for(Block ghost: ghosts){
 
             if(collision(ghost, pacman)){
-                lives -=1;
+
+                if(ghostEat == null){
+                    ghostEat= new SoundTrack("./Sound/pacman_eatghost.wav").getClip();
+                }
+                ghostEat.setFramePosition(0);
+                ghostEat.start();
+                
+                lives -= 1;
                 if(lives == 0){
+                    
+                    if(dieClip == null){
+                        dieClip= new SoundTrack("./Sound/pacman_death.wav").getClip();
+                    }
+                    dieClip.setFramePosition(0);
+                    dieClip.start();
+    
                     gameOver= true;
                     return;
                 }
@@ -285,6 +332,12 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
         Block foodEaten= null;
         for(Block food: foods){
             if(collision(pacman, food)){
+                if(eatClip == null){
+                    eatClip= new SoundTrack("./Sound/pacman_eatfruit.wav").getClip();
+                }
+                eatClip.setFramePosition(0);
+                eatClip.start();
+                
                 foodEaten= food;
                 score += 10;
             }
@@ -293,6 +346,12 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
 
 
         if(foods.isEmpty()){
+            if(levelUpClip == null){
+                levelUpClip= new SoundTrack("./Sound/pacman_beginning.wav").getClip();
+            }
+            levelUpClip.setFramePosition(0);
+            levelUpClip.start();
+            
             loadMap();
             resetPositions();
         }

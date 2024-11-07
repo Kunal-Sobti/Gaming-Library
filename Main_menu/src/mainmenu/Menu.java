@@ -3,16 +3,51 @@ import flappybird.App;
 import pacman.GamePacman;
 import pingpong.PongGame;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 import java.lang.Thread;
 
 public class Menu {
 
+    Clip buttonPress= null;
+    
     public Menu() {
         
+        // Sound Track
+        class SoundTrack {
+            Clip clip = null;
+            AudioInputStream audioStream;
+
+            SoundTrack(String audio) {
+                try {
+                    InputStream soundFile = getClass().getResourceAsStream(audio);
+                    if (soundFile == null) {
+                        System.out.println("Sound file not found: " + audio);
+                        return;
+                    }
+                    audioStream = AudioSystem.getAudioInputStream(soundFile);
+                    clip = AudioSystem.getClip();
+                    clip.open(audioStream);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Clip getClip() {
+                return clip;
+            }
+        }
+        
+        if(buttonPress == null){
+            buttonPress= new SoundTrack("./Sound/button-push.wav").getClip();
+        }
+
         JFrame frame = new JFrame("🕹️🎯 Game Library 🎮⭕");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 550);
@@ -22,12 +57,12 @@ public class Menu {
         frame.setIconImage(gamepadIcon.getImage());
         
         // flappy bird button
-        JButton flappyBirdButton = new JButton("Play Flappy Bird 🦅🦅");
+        JButton flappyBirdButton = new JButton("Play Flappy Bird 🐥🐥");
         
         Font commonFont = new Font("SansSerif", Font.BOLD | Font.ITALIC, 35);
         flappyBirdButton.setFont(commonFont);
         
-        Color colorForFlappy= new Color(120, 200, 213);
+        Color colorForFlappy= new Color(79, 184, 88);
         flappyBirdButton.setBackground(colorForFlappy);
         
         // ping pong button
@@ -63,6 +98,7 @@ public class Menu {
         flappyBirdButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonSound();
                 flappyBirdGame();
             }
         });
@@ -70,6 +106,7 @@ public class Menu {
         pingPongButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonSound();
                 pingPongGame();
             }
         });
@@ -77,6 +114,7 @@ public class Menu {
         pacmanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                buttonSound();
                 pacmanGame();
             }
         });
@@ -84,9 +122,15 @@ public class Menu {
         ticTacButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                buttonSound();
                 ticTacToeGame();
             }
         });
+    }
+
+    private void buttonSound(){
+        buttonPress.setFramePosition(0);
+        buttonPress.start();
     }
 
     private void flappyBirdGame() {
