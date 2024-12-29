@@ -173,16 +173,16 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
         addKeyListener(this);       // pacman object listens to key presses
         setFocusable(true); //when window focused only when listens
         // load image
-        wallImage= new ImageIcon(getClass().getResource("./Images/wall.png")).getImage();
-        blueGhostImage= new ImageIcon(getClass().getResource("./Images/blueGhost.png")).getImage();
-        orangeGhostImage= new ImageIcon(getClass().getResource("./Images/orangeGhost.png")).getImage();
-        redGhostImage= new ImageIcon(getClass().getResource("./Images/redGhost.png")).getImage();
-        pinkGhostImage= new ImageIcon(getClass().getResource("./Images/pinkGhost.png")).getImage();
+        wallImage= new ImageIcon(getClass().getResource("/pacman/Images/wall.png")).getImage();
+        blueGhostImage= new ImageIcon(getClass().getResource("/pacman/Images/blueGhost.png")).getImage();
+        orangeGhostImage= new ImageIcon(getClass().getResource("/pacman/Images/orangeGhost.png")).getImage();
+        redGhostImage= new ImageIcon(getClass().getResource("/pacman/Images/redGhost.png")).getImage();
+        pinkGhostImage= new ImageIcon(getClass().getResource("/pacman/Images/pinkGhost.png")).getImage();
 
-        pacmanUpImage= new ImageIcon(getClass().getResource("./Images/pacmanUp.png")).getImage();
-        pacmanDownImage= new ImageIcon(getClass().getResource("./Images/pacmanDown.png")).getImage();
-        pacmanLeftImage= new ImageIcon(getClass().getResource("./Images/pacmanLeft.png")).getImage();
-        pacmanRightImage= new ImageIcon(getClass().getResource("./Images/pacmanRight.png")).getImage();
+        pacmanUpImage= new ImageIcon(getClass().getResource("/pacman/Images/pacmanUp.png")).getImage();
+        pacmanDownImage= new ImageIcon(getClass().getResource("/pacman/Images/pacmanDown.png")).getImage();
+        pacmanLeftImage= new ImageIcon(getClass().getResource("/pacman/Images/pacmanLeft.png")).getImage();
+        pacmanRightImage= new ImageIcon(getClass().getResource("/pacman/Images/pacmanRight.png")).getImage();
 
         loadMap();
         for(Block ghost: ghosts){
@@ -297,7 +297,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
             if(collision(ghost, pacman)){
 
                 if(ghostEat == null){
-                    ghostEat= new SoundTrack("./Sound/pacman_eatghost.wav").getClip();
+                    ghostEat= new SoundTrack("/pacman/Sound/pacman_eatghost.wav").getClip();
                 }
                 ghostEat.setFramePosition(0);
                 ghostEat.start();
@@ -306,7 +306,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
                 if(lives == 0){
                     
                     if(dieClip == null){
-                        dieClip= new SoundTrack("./Sound/pacman_death.wav").getClip();
+                        dieClip= new SoundTrack("/pacman/Sound/pacman_death.wav").getClip();
                     }
                     dieClip.setFramePosition(0);
                     dieClip.start();
@@ -337,7 +337,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
         for(Block food: foods){
             if(collision(pacman, food)){
                 if(eatClip == null){
-                    eatClip= new SoundTrack("./Sound/pacman_eatfruit.wav").getClip();
+                    eatClip= new SoundTrack("/pacman/Sound/pacman_eatfruit.wav").getClip();
                 }
                 eatClip.setFramePosition(0);
                 eatClip.start();
@@ -351,7 +351,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
 
         if(foods.isEmpty()){
             if(levelUpClip == null){
-                levelUpClip= new SoundTrack("./Sound/pacman_beginning.wav").getClip();
+                levelUpClip= new SoundTrack("/pacman/Sound/pacman_beginning.wav").getClip();
             }
             levelUpClip.setFramePosition(0);
             levelUpClip.start();
