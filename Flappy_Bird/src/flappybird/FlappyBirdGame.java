@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 import javax.sound.sampled.*;
@@ -31,7 +32,9 @@ public class FlappyBirdGame extends JPanel implements ActionListener, KeyListene
                     System.out.println("Sound file not found: " + audio);
                     return;
                 }
-                audioStream = AudioSystem.getAudioInputStream(soundFile);
+                BufferedInputStream bufferedStream = new BufferedInputStream(soundFile);
+                audioStream = AudioSystem.getAudioInputStream(bufferedStream);
+                
                 clip = AudioSystem.getClip();
                 clip.open(audioStream);
             } catch (Exception e) {

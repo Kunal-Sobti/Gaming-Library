@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.lang.Thread;
 
@@ -31,7 +32,9 @@ public class Menu {
                         System.out.println("Sound file not found: " + audio);
                         return;
                     }
-                    audioStream = AudioSystem.getAudioInputStream(soundFile);
+                    BufferedInputStream bufferedStream = new BufferedInputStream(soundFile);
+                    audioStream = AudioSystem.getAudioInputStream(bufferedStream);
+                    
                     clip = AudioSystem.getClip();
                     clip.open(audioStream);
                 } catch (Exception e) {
@@ -45,7 +48,7 @@ public class Menu {
         }
         
         if(buttonPress == null){
-            buttonPress= new SoundTrack("./Sound/button-push.wav").getClip();
+            buttonPress= new SoundTrack("/mainmenu/Sound/button-push.wav").getClip();
         }
 
         JFrame frame = new JFrame("🕹️🎯 Game Library 🎮⭕");

@@ -3,6 +3,8 @@ package tictactoe;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import javax.sound.sampled.*;
 
@@ -38,7 +40,10 @@ public class TicTacToe {
                         System.out.println("Sound file not found: " + audio);
                         return;
                     }
-                    audioStream = AudioSystem.getAudioInputStream(soundFile);
+                    
+                    BufferedInputStream bufferedStream = new BufferedInputStream(soundFile);
+                    audioStream = AudioSystem.getAudioInputStream(bufferedStream);
+                    
                     clip = AudioSystem.getClip();
                     clip.open(audioStream);
                 } catch (Exception e) {

@@ -5,6 +5,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Random;
@@ -94,7 +95,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener{
                     System.out.println("Sound file not found: " + audio);
                     return;
                 }
-                audioStream = AudioSystem.getAudioInputStream(soundFile);
+
+                BufferedInputStream bufferedStream = new BufferedInputStream(soundFile);
+                audioStream = AudioSystem.getAudioInputStream(bufferedStream);
+                
                 clip = AudioSystem.getClip();
                 clip.open(audioStream);
             } catch (Exception e) {
